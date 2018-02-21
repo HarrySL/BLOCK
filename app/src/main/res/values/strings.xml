@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">BLOCK</string>
-    <string name="button">Roll</string>
     <string name="adjBox">Adjective</string>
     <string name="verbBox">Verb</string>
     <string name="nounBox">Noun</string>
+    <string name="edit_message">Enter a Message</string>
+    <string name="button_roll_again">Roll Again</string>
+    <string name="button_start">UnBLOCK.</string>
+    <string name="welcome">Welcome</string>
+    <string name="button_roll">Roll</string>
 </resources>
