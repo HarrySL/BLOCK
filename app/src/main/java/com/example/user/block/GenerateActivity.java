@@ -94,7 +94,8 @@ public class GenerateActivity extends AppCompatActivity {
             "acceptable",
             "acclaimed",
             "accomplished",
-            "accurate"
+            "accurate",
+
 
     };
 
