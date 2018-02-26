@@ -43,7 +43,7 @@ public class GenerateActivity extends AppCompatActivity {
                 //verbOutput.setText(verbs.generate());
                 verbOutput.setText(generate(verbBank));
                 //adjOutput.setText(adj.generate());
-                adjOutput.setText(generate(adjBank));
+                //adjOutput.setText(generate(adjBank));
             }
         });
     }
@@ -52,27 +52,46 @@ public class GenerateActivity extends AppCompatActivity {
     //fileHandler verbs = new fileHandler("C:\\Users\\harry_lxvg8fi\\Desktop\\GroupProject\\BLOCK\\app\\src\\main\\assets\\verbs-bank.txt");
     //fileHandler adj = new fileHandler("adj-bank.txt");
 
+    //InputStream verbStream = getAssets().open("verbs-bank.txt");
+    //fileHandler verbs = new fileHandler(verbStream);
 
-    public String[] readLines(String file) throws IOException
+    File verbFile = new File("verbs-bank.txt");
+    String[] verbBank = readLines(verbFile);
+
+    public String[] readLines(File file) throws IOException
     {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
         List<String> lines = new ArrayList<>();
         String line;
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
         }
-        reader.close();
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(lines == null)
+        {
+            lines.add("Error");
+            lines.add("Error");
+        }
+        lines.add("HELP");
+        lines.add("Help");
         return lines.toArray(new String[lines.size()]);
-    };
+    }
+
     public String generate(String[] bank)
     {
         String output;
-        int Num = ThreadLocalRandom.current().nextInt(0, bank.length - 1);
+        int Num = ThreadLocalRandom.current().nextInt(0, bank.length);
         output = bank[Num];
         return output;
-    };
+    }
 
-    String[] verbBank = {
+    /*String[] verbBank = {
             "accept",
             "ache",
             "acknowledge",
@@ -97,6 +116,6 @@ public class GenerateActivity extends AppCompatActivity {
             "accurate",
 
 
-    };
+    };*/
 
 }

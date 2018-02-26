@@ -1,6 +1,7 @@
 package com.example.user.block;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,12 +18,18 @@ public class fileHandler {
 
     private String[] wordBank;
 
-    fileHandler(String file) throws IOException
+    fileHandler()
     {
-        wordBank = readLines(file);
+
     }
 
-    public String[] readLines(String file) throws IOException
+    fileHandler(String file) throws IOException
+    {
+        File bank = new File(file);
+        wordBank = readLines(bank);
+    }
+
+    public String[] readLines(File file) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         List<String> lines = new ArrayList<>();
