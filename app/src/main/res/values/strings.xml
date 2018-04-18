@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BLOCK</string>
     <string name="adjBox">Adjective</string>
-    <string name="verbBox">Verb</string>
+    <string name="topBox">Verb</string>
     <string name="nounBox">Noun</string>
     <string name="edit_message">Enter a Message</string>
     <string name="button_roll_again">Roll Again</string>

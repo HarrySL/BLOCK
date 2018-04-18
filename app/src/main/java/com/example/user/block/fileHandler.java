@@ -1,11 +1,15 @@
 package com.example.user.block;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.channels.AsynchronousFileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,35 +21,77 @@ import java.util.concurrent.ThreadLocalRandom;
 public class fileHandler {
 
     private String[] wordBank;
-
+    private BufferedReader reader = null;
+    private InputStreamReader ISReader = null;
+    private Context thisContext;
     fileHandler()
     {
 
     }
 
-    fileHandler(String file) throws IOException
+    fileHandler(String file, Context context)
     {
-        File bank = new File(file);
+        giveContext(context);
+        String bank = file;
         wordBank = readLines(bank);
     }
 
-    public String[] readLines(File file) throws IOException
+    public void giveContext(Context context)
     {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        List<String> lines = new ArrayList<>();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            lines.add(line);
+        thisContext = context;
+    }
+    public String[] readLines(String file)
+    {
+        try {
+            //reader = new BufferedReader(new FileReader(file));
+            reader = new BufferedReader(new InputStreamReader(thisContext.getAssets().open(file)));
+            List<String> lines = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+            return lines.toArray(new String[lines.size()]);
         }
-        reader.close();
-        return lines.toArray(new String[lines.size()]);
-    };
+        catch (IOException e)
+        {
+            String[] exception = {"Read Lines Error"};
+            return exception;
+        }
+
+        /*
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open("verbBank.txt")));
+            String nLine = null;
+            while ((nLine = reader.readLine()) != null) {
+                //text.append(nLine);
+                //text.append('\n');
+                list.add(nLine);
+            }
+            size = list.size();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        */
+    }
 
     public String generate()
     {
         String output;
-        int Num = ThreadLocalRandom.current().nextInt(0, wordBank.length - 1);
-        output = wordBank[Num];
+        if (wordBank.length >= 2) {
+            int Num = ThreadLocalRandom.current().nextInt(0, wordBank.length - 1);
+            output = wordBank[Num];
+        }
+        else if(wordBank.length == 1)
+        {
+            output = wordBank[0];
+        }
+        else
+        {
+            output = "Generate Error";
+        }
         return output;
-    };
+    }
 }

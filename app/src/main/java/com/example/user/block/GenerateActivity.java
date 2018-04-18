@@ -1,5 +1,7 @@
 package com.example.user.block;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,100 +26,70 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateActivity extends AppCompatActivity {
 
+    Context context = this;
     public GenerateActivity() throws IOException {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate);
+        BufferedReader reader = null;
 
         //On create, read text files.
         //In full build should only read relevant files when generating output.
-        Button buttonRoll = (Button)findViewById(R.id.buttonRoll);
-        final TextView verbOutput = (TextView)findViewById(R.id.verbBoxOutput);
-        final TextView adjOutput = (TextView)findViewById(R.id.adjBoxOutput);
+        Button buttonRoll = (Button) findViewById(R.id.buttonRoll);
+        final TextView topOutput = (TextView) findViewById(R.id.topBoxOutput);
+        final TextView midOutput = (TextView) findViewById(R.id.midBoxOutput);
+
+        final fileHandler verbs = new fileHandler("verbsBank.txt", context);
+        final fileHandler adj = new fileHandler("adjBank.txt", context);
 
         buttonRoll.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                //verbOutput.setText(verbs.generate());
-                verbOutput.setText(generate(verbBank));
-                //adjOutput.setText(adj.generate());
-                //adjOutput.setText(generate(adjBank));
+            public void onClick(View view) {
+                topOutput.setText(verbs.generate());
+                midOutput.setText(adj.generate());
             }
         });
-    }
 
-    //fileHandler verbs = new fileHandler("verbs-bank.txt");
-    //fileHandler verbs = new fileHandler("C:\\Users\\harry_lxvg8fi\\Desktop\\GroupProject\\BLOCK\\app\\src\\main\\assets\\verbs-bank.txt");
-    //fileHandler adj = new fileHandler("adj-bank.txt");
+        /*
 
-    //InputStream verbStream = getAssets().open("verbs-bank.txt");
-    //fileHandler verbs = new fileHandler(verbStream);
+        List<String> list = new ArrayList<>();
+        int size = 0;
+        Object[] strings;
 
-    File verbFile = new File("verbs-bank.txt");
-    String[] verbBank = readLines(verbFile);
-
-    public String[] readLines(File file) throws IOException
-    {
-        List<String> lines = new ArrayList<>();
-        String line;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open("verbBank.txt")));
+            String nLine = null;
+            while ((nLine = reader.readLine()) != null) {
+                //text.append(nLine);
+                //text.append('\n');
+                list.add(nLine);
             }
-            reader.close();
+            size = list.size();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
+
+        TextView output = (TextView) findViewById(R.id.viewBox);
+        //output.setText((CharSequence) text);
+        //output.setText(list.get(3));
+
+        String stringOut;
+        int Num = 0;
+
+        if (size != 0) {
+            Num = ThreadLocalRandom.current().nextInt(0, size);
+        } else {
+            list.add("List machine broke");
         }
-        if(lines == null)
-        {
-            lines.add("Error");
-            lines.add("Error");
-        }
-        lines.add("HELP");
-        lines.add("Help");
-        return lines.toArray(new String[lines.size()]);
+        //strings = list.toArray();
+        //stringOut = strings[Num];
+        stringOut = list.get(Num);
+
+        output.setText(stringOut);
+        */
     }
-
-    public String generate(String[] bank)
-    {
-        String output;
-        int Num = ThreadLocalRandom.current().nextInt(0, bank.length);
-        output = bank[Num];
-        return output;
-    }
-
-    /*String[] verbBank = {
-            "accept",
-            "ache",
-            "acknowledge",
-            "act",
-            "add",
-            "admire",
-            "admit",
-            "admonish",
-            "advise",
-            "adopt"
-    };
-    String[] adjBank = {
-            "abandoned",
-            "able",
-            "absolute",
-            "adorable",
-            "adventurous",
-            "academic",
-            "acceptable",
-            "acclaimed",
-            "accomplished",
-            "accurate",
-
-
-    };*/
-
 }
