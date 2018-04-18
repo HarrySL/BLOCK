@@ -1,33 +1,23 @@
 package com.example.user.block;
 
 import android.content.Context;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.nio.channels.AsynchronousFileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Harry on 21/02/2018.
+ * For BLOCK group project
  */
 
 public class fileHandler {
 
     private String[] wordBank;
     private BufferedReader reader = null;
-    private InputStreamReader ISReader = null;
     private Context thisContext;
-    fileHandler()
-    {
-
-    }
 
     fileHandler(String file, Context context)
     {
@@ -58,23 +48,6 @@ public class fileHandler {
             String[] exception = {"Read Lines Error"};
             return exception;
         }
-
-        /*
-        try {
-            reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("verbBank.txt")));
-            String nLine = null;
-            while ((nLine = reader.readLine()) != null) {
-                //text.append(nLine);
-                //text.append('\n');
-                list.add(nLine);
-            }
-            size = list.size();
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        */
     }
 
     public String generate()
