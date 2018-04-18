@@ -57,6 +57,5 @@ public class GenerateActivity extends AppCompatActivity {
                 botOutput.setText(bot.generate());
             }
         });
-
     }
 }
