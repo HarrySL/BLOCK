@@ -58,44 +58,5 @@ public class GenerateActivity extends AppCompatActivity {
             }
         });
 
-        /*
-
-        List<String> list = new ArrayList<>();
-        int size = 0;
-        Object[] strings;
-
-        try {
-            reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("verbBank.txt")));
-            String nLine = null;
-            while ((nLine = reader.readLine()) != null) {
-                //text.append(nLine);
-                //text.append('\n');
-                list.add(nLine);
-            }
-            size = list.size();
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        TextView output = (TextView) findViewById(R.id.viewBox);
-        //output.setText((CharSequence) text);
-        //output.setText(list.get(3));
-
-        String stringOut;
-        int Num = 0;
-
-        if (size != 0) {
-            Num = ThreadLocalRandom.current().nextInt(0, size);
-        } else {
-            list.add("List machine broke");
-        }
-        //strings = list.toArray();
-        //stringOut = strings[Num];
-        stringOut = list.get(Num);
-
-        output.setText(stringOut);
-        */
     }
 }
