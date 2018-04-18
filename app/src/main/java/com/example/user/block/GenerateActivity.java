@@ -39,16 +39,22 @@ public class GenerateActivity extends AppCompatActivity {
         //On create, read text files.
         //In full build should only read relevant files when generating output.
         Button buttonRoll = (Button) findViewById(R.id.buttonRoll);
+        //Get output areas
         final TextView topOutput = (TextView) findViewById(R.id.topBoxOutput);
         final TextView midOutput = (TextView) findViewById(R.id.midBoxOutput);
+        final TextView botOutput = (TextView) findViewById(R.id.botBoxOutput);
 
+        //Get word banks
+        //Add option system
         final fileHandler verbs = new fileHandler("verbsBank.txt", context);
         final fileHandler adj = new fileHandler("adjBank.txt", context);
+        final fileHandler bot = new fileHandler("verbsBank.txt", context);
 
         buttonRoll.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 topOutput.setText(verbs.generate());
                 midOutput.setText(adj.generate());
+                botOutput.setText(bot.generate());
             }
         });
 
