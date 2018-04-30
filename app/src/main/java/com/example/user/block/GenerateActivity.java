@@ -1,48 +1,113 @@
 package com.example.user.block;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import java.io.BufferedReader;
-import java.io.IOException;
 
-public class GenerateActivity extends AppCompatActivity {
+public class GenerateActivity extends MainActivity {
 
     Context context = this;
-    public GenerateActivity() throws IOException {
+
+    //Output Boxes
+    TextView topOutput;
+    TextView midOutput;
+    TextView botOutput;
+    //FileHandlers and default files
+    public fileHandler file1;
+    public fileHandler file2;
+    public fileHandler file3;
+    //Activity request variable
+    static int PICK_ACTIVITY_REQUEST;
+
+    public GenerateActivity(){
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+        protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate);
-        BufferedReader reader = null;
 
-        //On create, read text files.
-        //In full build should only read relevant files when generating output.
-        Button buttonRoll = (Button) findViewById(R.id.buttonRoll);
+        //Get button
+        Button buttonRoll = findViewById(R.id.buttonRoll);
         //Get output areas
-        final TextView topOutput = (TextView) findViewById(R.id.topBoxOutput);
-        final TextView midOutput = (TextView) findViewById(R.id.midBoxOutput);
-        final TextView botOutput = (TextView) findViewById(R.id.botBoxOutput);
+        topOutput = findViewById(R.id.topBoxOutput);
+        midOutput = findViewById(R.id.midBoxOutput);
+        botOutput = findViewById(R.id.botBoxOutput);
 
-        //Get word banks
-        //Add option system
-        final fileHandler verbs = new fileHandler("verbsBank.txt", context);
-        final fileHandler adj = new fileHandler("adjBank.txt", context);
-        final fileHandler bot = new fileHandler("verbsBank.txt", context);
+        //Load files if preset
+        if(presetLock)
+        {
+            setFile(1,topInput);
+            setFile(2,midInput);
+            setFile(3,botInput);
+        }
 
+        //Set button listener
         buttonRoll.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                topOutput.setText(verbs.generate());
-                midOutput.setText(adj.generate());
-                botOutput.setText(bot.generate());
+                if(file1 != null)
+                    topOutput.setText(file1.generate());
+                if(file2 != null)
+                    midOutput.setText(file2.generate());
+                if(file3 != null)
+                    botOutput.setText(file3.generate());
             }
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String file = data.getStringExtra("FILE");
+        // Check which request we're responding to
+        if (requestCode == PICK_ACTIVITY_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+            }
+            setFile(PICK_ACTIVITY_REQUEST, file);
+        }
+    }
+
     //Selection System goes here
+    public void onTextClick(View v){
+        if(!presetLock) {
+            if (v == topOutput)
+                PICK_ACTIVITY_REQUEST = 1;
+            else if (v == midOutput)
+                PICK_ACTIVITY_REQUEST = 2;
+            else if (v == botOutput)
+                PICK_ACTIVITY_REQUEST = 3;
+
+            Intent pickFileIntent = new Intent(GenerateActivity.this, MenuActivity.class);
+            startActivityForResult(pickFileIntent, PICK_ACTIVITY_REQUEST);
+        }
+    }
+
+    public void setFile(int x, String textFile)
+    {
+        switch(x) {
+            case 1:
+                file1 = new fileHandler(textFile, context);
+                break;
+            case 2:
+                file2 = new fileHandler(textFile, context);
+                break;
+            case 3:
+                file3 = new fileHandler(textFile, context);
+                break;
+        }
+    }
+
+    private int pickFile(){
+        Intent pickFileIntent = new Intent(GenerateActivity.this,MenuActivity.class);
+        startActivityForResult(pickFileIntent, PICK_ACTIVITY_REQUEST);
+        return 1;
+    }
+
+
 }
+

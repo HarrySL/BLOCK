@@ -8,19 +8,25 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    //public static final String EXTRA_MESSAGE = "com.example.user.block.MESSAGE";
+    //Input variables
+    static String topInput;
+    static String midInput;
+    static String botInput;
+    //Boolean
+    static boolean presetLock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Button
-        Button button = (Button) findViewById(R.id.buttonStart);
+        Button button = findViewById(R.id.buttonStart);
         //Create listener
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //Move to next activity on tap
-                startActivity(new Intent(MainActivity.this, GenerateActivity.class));
+                startActivity(new Intent(MainActivity.this, CategoryMenuActivity.class));
             }
         });
     }

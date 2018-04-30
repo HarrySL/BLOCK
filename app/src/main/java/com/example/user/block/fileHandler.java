@@ -16,25 +16,24 @@ import java.util.concurrent.ThreadLocalRandom;
 public class fileHandler {
 
     private String[] wordBank;
-    private BufferedReader reader = null;
-    private Context thisContext;
+    //private BufferedReader reader = null;
+    private  Context thisContext;
 
     fileHandler(String file, Context context)
     {
         giveContext(context);
-        String bank = file;
-        wordBank = readLines(bank);
+        wordBank = readLines(file);
     }
 
-    public void giveContext(Context context)
+    private void giveContext(Context context)
     {
         thisContext = context;
     }
-    public String[] readLines(String file)
+
+    private String[] readLines(String file)
     {
         try {
-            //reader = new BufferedReader(new FileReader(file));
-            reader = new BufferedReader(new InputStreamReader(thisContext.getAssets().open(file)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(thisContext.getAssets().open(file)));
             List<String> lines = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -45,8 +44,7 @@ public class fileHandler {
         }
         catch (IOException e)
         {
-            String[] exception = {"Read Lines Error"};
-            return exception;
+            return new String[]{"Read Lines Error"};
         }
     }
 

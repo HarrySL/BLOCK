@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.block.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:text="Choose a Source of Inspiration."
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="488dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#FF0000"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:showDividers="beginning|middle|end">
+
+            <Button
+                android:id="@+id/menu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adjectives."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nouns."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verbs."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Colours."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Typefaces."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Materials."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Composers"
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Musical Genres."
+                android:textAlignment="viewStart" />
+
+            <Button
+                android:id="@+id/menu9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Musical Instruments."
+                android:textAlignment="viewStart" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
